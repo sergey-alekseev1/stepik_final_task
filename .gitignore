@@ -1,0 +1,17 @@
+# Python байт-код
+__pycache__/
+*.py[cod]
+
+# Кеш pytest
+.pytest_cache/
+
+# Виртуальные окружения (если используешь)
+venv/
+env/
+
+# Настройки PyCharm
+.idea/
+
+# Логи и временные файлы
+*.log
+*.tmp
