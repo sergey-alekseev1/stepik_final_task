@@ -18,3 +18,7 @@ class ProductPageLocators():
     PRODUCT_COST_IN_ALERT = (By.XPATH, "//strong[text()='£19.99']")
     PRODUCT_IMG = (By.CSS_SELECTOR, ".item img")
 
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+
