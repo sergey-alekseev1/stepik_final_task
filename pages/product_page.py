@@ -56,3 +56,12 @@ class ProductPage(BasePage):
         assert product_cost_on_page == product_cost_in_alert, (
             f"Product name mismatch: '{product_cost_on_page}' != '{product_cost_in_alert}'"
         )
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.PRODUCT_NAME_IN_ALERT), \
+            "PRODUCT_NAME_IN_ALERT mismatch"
+
+    def message_disappeared_after_adding_product_to_basket(self):
+        assert self.is_disappeared(*ProductPageLocators.PRODUCT_NAME_IN_ALERT), \
+            "PRODUCT_NAME_IN_ALERT mismatch"
+
