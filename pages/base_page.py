@@ -42,8 +42,16 @@ class BasePage():
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
-        print(f">>> Current URL after click: {self.browser.current_url}")
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def guest_click_button_view_basket(self):
+        assert self.is_element_present(*BasePageLocators.HEADER_VIEW_BASKET), \
+            "Кнопка 'View basket' не найдена"
+        self.browser.find_element(*BasePageLocators.HEADER_VIEW_BASKET).click()
+
+
+
+
 
