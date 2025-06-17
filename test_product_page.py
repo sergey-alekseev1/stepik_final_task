@@ -4,7 +4,7 @@ from .pages.product_page import ProductPage
 from .pages.login_page import LoginPage
 from .pages.basket_page import BasketPage
 import pytest
-
+import time
 
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
@@ -74,3 +74,35 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page = BasketPage(browser, browser.current_url)
     basket_page.check_message_about_basket_empty()
     basket_page.check_basket_has_no_items
+
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        self.link = 'http://selenium1py.pythonanywhere.com/en-gb/accounts/login/'
+        login_page = LoginPage(browser, self.link)  # создаём страницу логина
+        login_page.open()  # открываем страницу логина
+
+        email = str(time.time()) + "@fakemail.org"
+        password = '4606464041557'
+        login_page.register_new_user(email, password)
+        login_page.should_be_authorized_user()
+
+
+
+    def test_user_cant_see_success_message(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0'
+        page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page.open()  # открываем страницу
+        page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0'
+        page = ProductPage(browser,
+                           link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page.open()  # открываем страницу
+        page.wait_for_page_load()
+        page.should_not_be_success_message()
+        page.product_add_to_basket()
+        page.solve_quiz_and_get_code()
+        page.validate_product_name_in_alert()
+        page.validate_cost_in_alert()
