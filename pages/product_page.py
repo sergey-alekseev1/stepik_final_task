@@ -1,11 +1,7 @@
 from .base_page import BasePage
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import StaleElementReferenceException
-
 from .locators import ProductPageLocators
 from selenium.common.exceptions import NoAlertPresentException
-import time
 import math
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -38,10 +34,10 @@ class ProductPage(BasePage):
         try:
             alert = self.browser.switch_to.alert
             alert_text = alert.text
-            print(f"Your code: {alert_text}")
             alert.accept()
+            assert alert_text, "Expected alert text but got empty"
         except NoAlertPresentException:
-            print("No second alert presented")
+            pass
 
     def validate_product_name_in_alert(self):
         product_name_on_page = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_ON_PAGE).text

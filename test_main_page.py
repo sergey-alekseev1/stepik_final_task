@@ -1,7 +1,6 @@
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
 from .pages.basket_page import BasketPage
-import time
 import pytest
 
 def test_guest_can_go_to_login_page(browser):
@@ -27,7 +26,8 @@ class TestLoginFromMainPage():
         page.guest_click_button_view_basket()
         basket_page = BasketPage(browser, browser.current_url)
         basket_page.check_message_about_basket_empty()
-        basket_page.check_basket_has_no_items
+        basket_page.check_basket_has_no_items()
+
 
 
 

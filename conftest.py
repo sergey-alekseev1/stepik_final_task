@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 
 def pytest_addoption(parser):
@@ -14,6 +15,7 @@ def pytest_addoption(parser):
 def browser(request):
     browser_name = request.config.getoption("browser_name")
     user_language = request.config.getoption("language")
+    browser = None
 
     if browser_name == "chrome":
         options = ChromeOptions()

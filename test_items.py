@@ -1,5 +1,3 @@
-import time
-
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -15,5 +13,4 @@ def test_search_basket(browser):
         EC.presence_of_element_located((By.CSS_SELECTOR, ".btn-add-to-basket")),
         message="Кнопка 'Добавить в корзину' не найдена"
     )
-
     assert button.is_displayed(), "Кнопка 'Добавить в корзину' не отображается"
